@@ -12,15 +12,22 @@ import org.springframework.stereotype.Component;
 public class UserDaoService {
 	
 	private static List<User> users = new ArrayList<>();
+	private static int usersCount = 0;
 	
 	static {
-		users.add(new User(1,"Rahul", LocalDate.now().minusYears(30)));
-		users.add(new User(2,"Utkarsh", LocalDate.now().minusYears(25)));
-		users.add(new User(3,"Muthu", LocalDate.now().minusYears(20)));
+		users.add(new User(++usersCount,"Rahul", LocalDate.now().minusYears(30)));
+		users.add(new User(++usersCount,"Utkarsh", LocalDate.now().minusYears(25)));
+		users.add(new User(++usersCount,"Muthu", LocalDate.now().minusYears(20)));
 	}
 	
 	public List<User> findAll(){
 		return users;
+	}
+	
+	public User save(User user) {
+		user.setId(++usersCount);
+		users.add(user);
+		return user;
 	}
 	
 	public User findOne(int id) {
